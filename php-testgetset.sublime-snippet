@@ -1,0 +1,49 @@
+<!--
+This snippet can be used to create two functions used to test
+getters/setters of classes.
+It creates one function to test an expected input and another to test
+an invalid input, where the class throws an exception for an InvalidArgument
+
+This snippet is triggered by typing testgetset then tab and tabbing between the
+following values:
+	1: The name of the class being test
+	2: The name of the variable being get/setted (function should be get<Name>)
+	3: A value which when set should be valid
+	4: A value which when set should throw an InvalidArgument Exception
+-->
+<snippet>
+	<content><![CDATA[/**
+ * Test that set${2/(.*)/\u$1/:[Variable Name]} works in class ${1/(.*)/\u$1/:[Class Name]}
+ * @test
+ */
+public function set${2/(.*)/\u$1/:[Variable Name]}(){
+	\$${1:[Class name]} = new ${1/(.*)/\u$1/:[Class Name]};
+	\$${2:[Variable name]} = ${3:[Valid Data]};
+
+	\$${1:[Class name]}->set${2/(.*)/\u$1/:[Variable Name]}(\$${2:[Variable name]});
+
+	\$this->assertEquals(\$${2:[Variable name]}, \$${1:[Class name]}->get${2/(.*)/\u$1/:[Variable Name]}());
+}
+
+/**
+ * Test that set${2/(.*)/\u$1/:[Variable Name]} in class ${1/(.*)/\u$1/:[Class Name]} throws an exception
+ * when set with an invalid value.
+ * @test
+ * @expectedException InvalidArgumentException
+ */
+public function set${2/(.*)/\u$1/:[Variable Name]}Exception(){
+	\$${1:[Class name]} = new ${1/(.*)/\u$1/:[Class Name]};
+	\$${2:[Variable name]} = ${0:[Invalid Data]};
+
+	\$${1:[Class name]}->set${2/(.*)/\u$1/:[Variable Name]}(\$${2:[Variable name]});
+}
+
+]]></content>
+	<!-- Optional: Tab trigger to activate the snippet -->
+	<tabTrigger>testgetset</tabTrigger>
+	<!-- Optional: Scope the tab trigger will be active in -->
+	<scope>source.php</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Create phpUnit tests for getter and setter methods,
+		 including a test for catching an exception when an invalid value is set.</description>
+</snippet>
